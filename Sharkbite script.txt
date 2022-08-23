@@ -1,0 +1,81 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Robojini/Tuturial_UI_Library/main/UI_Template_1"))()
+
+local Window = Library.CreateLib("Sharkbite script (beta)")
+
+local Tab = Window:NewTab("Combat")
+
+local Section = Tab:NewSection("Combat")
+
+Section:NewButton("Wallhack", "Wallhack", function()
+    while wait(0.5) do
+    for i, childrik in ipairs(workspace:GetDescendants()) do
+        if childrik:FindFirstChild("Humanoid") then
+            if not childrik:FindFirstChild("EspBox") then
+                if childrik ~= game.Players.LocalPlayer.Character then
+                    local esp = Instance.new("BoxHandleAdornment",childrik)
+                    esp.Adornee = childrik
+                    esp.ZIndex = 0
+                    esp.Size = Vector3.new(4, 5, 1)
+                    esp.Transparency = 0.65
+                    esp.Color3 = Color3.fromRGB(181,230,29)
+                    esp.AlwaysOnTop = true
+                    esp.Name = "EspBox"
+                end
+            end
+        end
+    end
+end
+end)
+
+Section:NewButton("Wallhack Shark", "Wallhack Shark ", function()
+local Folder = Instance.new("Folder")
+Folder.Name = "Chams"
+Folder.Parent = game.CoreGui
+
+local function cham(shark)
+    repeat wait() until shark:FindFirstChild("Body")
+    
+    local body = Instance.new("BoxHandleAdornment")
+    body.Size = shark.Body.Size
+    body.Name = shark.Name.."-Body"
+    body.Adornee = shark.Body
+    body.AlwaysOnTop = true
+    body.Transparency = 0.7
+    body.Color3 = Color3.fromRGB(255,127,39)
+    body.ZIndex = 2
+    body.Parent = Folder
+    body.Visible = true
+    
+    local fin = Instance.new("BoxHandleAdornment")
+    fin.Size = shark.Fin.Size
+    fin.Name = shark.Name.."-Fin"
+    fin.Adornee = shark.Fin
+    fin.AlwaysOnTop = true
+    fin.Transparency = 0.7
+    fin.Color3 = Color3.fromRGB(255,127,39)
+    fin.ZIndex = 2
+    fin.Parent = Folder
+    fin.Visible = true
+
+    shark.AncestryChanged:Connect(function()
+        body:Destroy()
+        fin:Destroy()
+    end)
+end
+
+for _, shark in pairs(game:GetService("Workspace").Sharks:GetChildren()) do cham(shark) end
+game:GetService("Workspace").Sharks.ChildAdded:Connect(function(shark) cham(shark) end)	
+end)
+
+local Tab = Window:NewTab("Bind key")
+
+local Section = Tab:NewSection("Bind key")
+
+Section:NewKeybind("Teleport", "Teleport", Enum.KeyCode.T, function()
+	game:GetService("Workspace").Lexo0807p1.HumanoidRootPart.CFrame = CFrame.new (0.504446507, 285.92691, -33.7112083, 0.725392699, -4.04937328e-09, 0.68833524, -1.242101e-08, 1, 1.89725622e-08, -0.68833524, -2.23123777e-08, 0.725392699)
+end)
+
+
+Section:NewKeybind("Speed", "Speed", Enum.KeyCode.Y, function()
+	game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 315
+end)
